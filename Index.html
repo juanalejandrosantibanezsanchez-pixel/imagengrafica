@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Imagen Grafica</title>
+  <style>
+
+/*Imagen inicio*/
+.imagen-inicio {
+  width: 60%;
+  max-width: 600px;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+/* Lightbox general para zoom */
+#lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(255,255,255,0.5);
+  transition: transform 0.3s ease; /* animación de zoom */
+}
+
+#lightbox img:hover {
+  transform: scale(1.02);
+}
+
+#cerrar {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 40px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+/* Color de mi encabezado */
+.encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: #FFD700; /* Gold */
+  color: #000000; /* Texto negro */
+}
+
+/* Logo */
+.logo {
+  margin-right: 15px; /* Separación entre el logo y el texto */
+  height: 120px; /* Doble del tamaño anterior (antes 60px) */
+}
+
+	
+	* {
+	box-sizing: border-box;
+	}
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+  /* MENÚ CONTENEDOR */
+.menu-container {
+  position: fixed;
+  top: 0; /* ajustado a 0 para que quede arriba */
+  width: 100%;
+  background-color: #000000; /* fondo negro */
+  border-bottom: 1px solid #333; /* línea sutil */
+  z-index: 1000;
+}
+
+/* BOTÓN HAMBURGUESA */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 26px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* LISTA DEL MENÚ */
+.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 70px;
+  padding: 20px 0; /* más compacto que antes */
+}
+
+.menu li {
+  display: inline;
+}
+
+/* ENLACES DEL MENÚ */
+.menu a {
+  text-decoration: none;
+  color: #ffffff; /* letras blancas */
+  font-weight: 600; /* semi-bold */
+  transition: color 0.3s ease;
+}
+
+/* ENLACE ACTIVO */
+.menu a.activo {
+  color: #cfff00; /* color corporativo amarillo/verde */
+}
+
+/* HOVER */
+.menu a:hover {
+  color: #cfff00; /* amarillo/verde al pasar el mouse */
+  text-decoration: underline;
+}
+
+
+    /* CONTENIDO */
+    .contenido {
+      margin-top: 200px;
+      padding: 20px;
+    }
+
+
+		
+	/* Carrusel */
+	.carrusel-container {
+	  position: relative;
+	  width: 100%;
+	  overflow: hidden;
+	  margin-top: 20px;
+	}
+
+	.carrusel {
+	  display: flex;
+	  overflow-x: auto;
+	  scroll-behavior: smooth;
+	  gap: 10px;
+	  padding: 10px 0;
+	}
+
+	.carrusel img {
+	  flex: 0 0 auto;
+	  width: 200px;
+	  height: 150px;
+	  object-fit: cover;
+	  border-radius: 8px;
+	  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+	}
+
+	/* Botones carrusel */
+	.carrusel-btn {
+	  position: absolute;
+	  top: 40%;
+	  transform: translateY(-50%);
+	  background-color: rgba(255,255,255,0.8);
+	  border: none;
+	  font-size: 24px;
+	  cursor: pointer;
+	  padding: 5px 10px;
+	  z-index: 10;
+	  border-radius: 50%;
+	}
+
+	.izquierda {
+	  left: 5px;
+	}
+
+	.derecha {
+	  right: 5px;
+	}
+	
+    .seccion {
+      display: none;
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+	/* carruseldos */
+	.carruseldos-container {
+	  position: relative;
+	  width: 100%;
+	  overflow: hidden;
+	  margin-top: 20px;
+	}
+
+	.carruseldos {
+	  display: flex;
+	  overflow-x: auto;
+	  scroll-behavior: smooth;
+	  gap: 10px;
+	  padding: 10px 0;
+	}
+
+	.carruseldos img {
+	  flex: 0 0 auto;
+	  width: 200px;
+	  height: 150px;
+	  object-fit: cover;
+	  border-radius: 8px;
+	  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+	}
+
+	/* Botones carruseldos */
+	.carruseldos-btn {
+	  position: absolute;
+	  top: 40%;
+	  transform: translateY(-50%);
+	  background-color: rgba(255,255,255,0.8);
+	  border: none;
+	  font-size: 24px;
+	  cursor: pointer;
+	  padding: 5px 10px;
+	  z-index: 10;
+	  border-radius: 50%;
+	}
+	
+
+		/* carruselCuatro */
+	.carruselCuatro-container {
+	  position: relative;
+	  width: 100%;
+	  overflow: hidden;
+	  margin-top: 20px;
+	}
+
+	.carruselCuatro {
+	  display: flex;
+	  overflow-x: auto;
+	  scroll-behavior: smooth;
+	  gap: 10px;
+	  padding: 10px 0;
+	}
+
+	.carruselCuatro img {
+	  flex: 0 0 auto;
+	  width: 200px;
+	  height: 150px;
+	  object-fit: cover;
+	  border-radius: 8px;
+	  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+	}
+
+	/* Botones carruselCuatro */
+	.carruselCuatro-btn {
+	  position: absolute;
+	  top: 40%;
+	  transform: translateY(-50%);
+	  background-color: rgba(255,255,255,0.8);
+	  border: none;
+	  font-size: 24px;
+	  cursor: pointer;
+	  padding: 5px 10px;
+	  z-index: 10;
+	  border-radius: 50%;
+	}
+		
+	/* carruselCinco */
+	.carruselCinco-container {
+	  position: relative;
+	  width: 100%;
+	  overflow: hidden;
+	  margin-top: 20px;
+	}
+
+	.carruselCinco {
+	  display: flex;
+	  overflow-x: auto;
+	  scroll-behavior: smooth;
+	  gap: 10px;
+	  padding: 10px 0;
+	}
+
+	.carruselCinco img {
+	  flex: 0 0 auto;
+	  width: 200px;
+	  height: 150px;
+	  object-fit: cover;
+	  border-radius: 8px;
+	  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+	}
+
+	/* Botones carruselCinco */
+	.carruselCinco-btn {
+	  position: absolute;
+	  top: 40%;
+	  transform: translateY(-50%);
+	  background-color: rgba(255,255,255,0.8);
+	  border: none;
+	  font-size: 24px;
+	  cursor: pointer;
+	  padding: 5px 10px;
+	  z-index: 10;
+	  border-radius: 50%;
+	}
+		/* carruselSeis */
+	.carruselSeis-container {
+	  position: relative;
+	  width: 100%;
+	  overflow: hidden;
+	  margin-top: 20px;
+	}
+
+	.carruselSeis {
+	  display: flex;
+	  overflow-x: auto;
+	  scroll-behavior: smooth;
+	  gap: 10px;
+	  padding: 10px 0;
+	}
+
+	.carruselSeis img {
+	  flex: 0 0 auto;
+	  width: 200px;
+	  height: 150px;
+	  object-fit: cover;
+	  border-radius: 8px;
+	  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+	}
+
+	/* Botones carruselSeis */
+	.carruselSeis-btn {
+	  position: absolute;
+	  top: 40%;
+	  transform: translateY(-50%);
+	  background-color: rgba(255,255,255,0.8);
+	  border: none;
+	  font-size: 24px;
+	  cursor: pointer;
+	  padding: 5px 10px;
+	  z-index: 10;
+	  border-radius: 50%;
+	}
+	
+	/*Termina carrusel*/
+
+    /* RESPONSIVE */
+ @media (max-width: 768px) {
+  .menu {
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    display: none;
+  }
+
+  .menu.show {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .contenido {
+    padding: 80px 20px;
+  }
+
+  .encabezado {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .logo {
+    margin: 0 auto 10px;
+  }
+
+  .carrusel img {
+    width: 100%;
+    height: auto;
+  }
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #000000;
+  color: #FFFFFF;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 14px;
+  z-index: 1000;
+  border-top: 1px solid #ccc;
+}
+
+/* Espacio para que el contenido no quede oculto detrás del footer */
+body {
+  padding-bottom: 60px; /* ajusta si el footer es más alto */
+}
+
+/*Informacion de contacto en 2 columnas*/
+
+.contacto-info {
+  display: flex;
+  gap: 50px; /* espacio entre columnas */
+  justify-content: flex-end; /* mantener alineado a la derecha */
+  flex-wrap: wrap; /* para que se acomode en móviles */
+}
+
+.contacto-info .columna {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* espacio entre líneas */
+}
+
+@media (max-width: 768px) {
+  .contacto-info {
+    flex-direction: column;
+    gap: 20px;
+    text-align: left; /* mejor para móviles */
+  }
+}
+
+
+
+
+</style>
+</head>
+<body>
+	<!-- Encabezado con título y logo -->
+	<header class="header">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		</header>
+	
+  <!-- MENÚ -->
+  <div class="menu-container">
+  <div class="encabezado">
+			<!-- Logo en la parte superior derecha -->
+			<img src="Galeria\Logo Imagen Grafica.png" alt="Logo" id="logo" class="logo"/>
+			<h1>INSTALACION GRAFICA</h1>
+	</div>
+	<button class="menu-toggle" onclick="toggleMenu()">☰</button>
+	    <ul class="menu" id="menu">
+	  <li><a href="#!" onclick="mostrarSeccion('inicio', this)">INICIO</a></li>
+      <li><a href="#!" onclick="mostrarSeccion('imagen-interna', this)">IMAGEN INTERNA</a></li>
+      <li><a href="#!" onclick="mostrarSeccion('imagen-externa', this)">IMAGEN EXTERNA</a></li>
+	  <li><a href="#!" onclick="mostrarSeccion('rotulacion-vehicular', this)">ROTULACION VEHICULAR</a></li>
+	  <li><a href="#!" onclick="mostrarSeccion('stands', this)">STANDS</a></li>
+	  <li><a href="#!" onclick="mostrarSeccion('contacto', this)">CONTACTO</a></li>
+    </ul>
+  </div>
+
+  <!-- CONTENIDO -->
+ <div class="contenido">
+  <div id="inicio" class="seccion">
+    <h2>Inicio</h2>
+   <p>brindamos servicio de imagen publicitaria, en cualquier parte de la republica mexicana contamos con profesionales en soluciones gráficas con amplia experiencia combinada, equipados, haciendo énfasis en el buen servicio a nuestros clientes.</p>
+
+    <img src="Catalogos/inicio/imagen_inicio.jpeg" 
+         alt="Imagen de inicio" 
+         class="imagen-inicio"> 
+  </div>
+    <div id="imagen-interna" class="seccion">
+      <h2>Inicio</h2>
+      <p>Imagen Interna.</p>
+	<div class="carruseldos-container">
+  <button class="carruseldos-btn izquierda" onclick="scrollcarruseldos(-1)">&#10094;</button>
+  
+  <div class="carruseldos" id="carruseldos">
+    <!-- 20 imágenes (puedes reemplazar los src por tus imágenes reales) -->
+    <!-- Para ejemplo, usamos https://picsum.photos (imágenes aleatorias) -->
+	<img src="Catalogos/ImagenInterna/RI_2.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_3.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_4.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_5.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_6.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_7.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_8.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_9.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_10.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_11.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_12.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_13.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_14.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_15.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_16.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_17.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_18.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_19.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_20.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_21.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_22.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_23.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_24.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_25.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_26.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_27.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_28.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_29.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_30.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_31.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_32.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_33.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_34.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_35.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_36.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_37.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_38.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_39.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_40.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_41.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_42.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_43.jpeg" alt="Rotulación Interna">
+	<img src="Catalogos/ImagenInterna/RI_44.jpeg" alt="Rotulación Interna">
+  </div>
+
+  <button class="carruseldos-btn derecha" onclick="scrollcarruseldos(1)">&#10095;</button>
+</div>
+
+    </div>
+	
+
+    <div id="imagen-externa" class="seccion">
+      <h2>Imagen Externa</h2>
+<p>Ofrecemos desarrollo web, diseño gráfico y más.</p>
+
+<!-- Carrusel -->
+<div class="carrusel-container">
+  <button class="carrusel-btn izquierda" onclick="scrollCarrusel(-1)">&#10094;</button>
+  
+  <div class="carrusel" id="carrusel">
+    <!-- 20 imágenes (puedes reemplazar los src por tus imágenes reales) -->
+    <!-- Para ejemplo, usamos https://picsum.photos (imágenes aleatorias) -->
+    <img src="Catalogos/imagenExterna/RE_1.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_2.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_3.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_4.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_5.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_6.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_7.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_8.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_9.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_10.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_11.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_12.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_13.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_14.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_15.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_16.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_17.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_18.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_19.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_20.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_21.jpeg" alt="Rotulación Externa">
+	<img src="Catalogos/imagenExterna/RE_22.jpeg" alt="Rotulación Externa">
+  </div>
+
+  <button class="carrusel-btn derecha" onclick="scrollCarrusel(1)">&#10095;</button>
+</div>
+
+    </div>
+
+   <div id="rotulacion-vehicular" class="seccion">
+      <h2>Rotulacion Vehicular</h2>
+      <p>rotulacion vehicular</p>
+	  <!-- carruselCuatro -->
+<div class="carruselCuatro-container">
+  <button class="carruselCuatro-btn izquierda" onclick="scrollcarruselCuatro(-1)">&#10094;</button>
+  
+  <div class="carruselCuatro" id="carruselCuatro">
+	<img src="Catalogos/rotulacionVehicular/RV_1.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_2.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_3.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_4.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_5.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_6.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_7.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_8.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_9.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_10.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_11.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_12.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_13.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_14.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_15.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_16.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_17.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_18.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_19.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_20.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_21.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_22.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_23.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_24.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_25.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_26.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_27.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_28.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_29.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_30.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_31.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_32.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_33.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_34.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_35.jpeg" alt="Rotulación Vehicular">
+	<img src="Catalogos/rotulacionVehicular/RV_36.jpeg" alt="Rotulación Vehicular">
+  </div>
+
+  <button class="carruselCuatro-btn derecha" onclick="scrollcarruselCuatro(1)">&#10095;</button>
+</div>
+
+    </div>
+	
+	<div id="stands" class="seccion">
+      <h2>Stands</h2>
+      <p>stands</p>
+	  <!-- carruselCinco -->
+<div class="carruselCinco-container">
+  <button class="carruselCinco-btn izquierda" onclick="scrollcarruselCinco(-1)">&#10094;</button>
+  
+  <div class="carruselCinco" id="carruselCinco">
+	<img src="Catalogos/stands/Stand_1.jpeg" alt="Stands">
+	<img src="Catalogos/stands/Stand_2.jpeg" alt="Stands">
+	<img src="Catalogos/stands/Stand_3.jpeg" alt="Stands">
+	<img src="Catalogos/stands/Stand_4.jpeg" alt="Stands">
+	<img src="Catalogos/stands/Stand_5.jpeg" alt="Stands">
+	<img src="Catalogos/stands/Stand_6.jpeg" alt="Stands">
+	<img src="Catalogos/stands/Stand_7.jpeg" alt="Stands">
+  </div>
+
+  <button class="carruselCinco-btn derecha" onclick="scrollcarruselCinco(1)">&#10095;</button>
+</div>
+    </div>
+<div id="contacto" class="seccion">
+  <h2>Contacto</h2>
+  <div class="contacto-info">
+    <div class="columna">
+      <p><strong>Javier Esquivel Piña</strong></p>
+      <p><strong>Email:</strong> jpeimagen16@gmail.com</p>
+    </div>
+    <div class="columna">
+      <p><strong>Teléfono:</strong> 553389-7577</p>
+      <p>  <strong>WhatsApp:</strong>  <a href="https://wa.me/525533897577" target="_blank"> 553389-7577 </a></p>
+    </div>
+  </div>
+  <div class="carruselSeis-container">
+    <button class="carruselSeis-btn izquierda" onclick="scrollcarruselSeis(-1)">&#10094;</button>
+    <div class="carruselSeis" id="carruselSeis">
+      <img src="Catalogos/Perfil/Perfil_1.jpeg" alt="Perfil">
+      <img src="Catalogos/Perfil/Perfil_2.jpeg" alt="Perfil">
+      <img src="Catalogos/Perfil/Perfil_3.jpeg" alt="Perfil">
+    </div>
+    <button class="carruselSeis-btn derecha" onclick="scrollcarruselSeis(1)">&#10095;</button>
+  </div>
+</div>
+    </div>
+  </div>
+ <footer class="footer">
+  <p>&copy; 2025 INSTALACION GRAFICA. Todos los derechos reservados. Sitio desarrollado por AlphaSantiCodeWeb</p>
+</footer>
+
+<!-- Lightbox para zoom de imágenes -->
+<div id="lightbox" style="display:none;">
+  <span id="cerrar">&times;</span>
+  <img id="imgZoom" src="" alt="Imagen Ampliada">
+</div>
+
+  <!-- JS -->
+  <script>
+    function mostrarSeccion(id, enlace) {
+      const secciones = document.querySelectorAll('.seccion');
+      const enlaces = document.querySelectorAll('.menu a');
+
+      secciones.forEach(sec => sec.style.display = 'none');
+      enlaces.forEach(a => a.classList.remove('activo'));
+
+      document.getElementById(id).style.display = 'block';
+      enlace.classList.add('activo');
+
+      // Cerrar el menú en móviles
+      document.getElementById('menu').classList.remove('show');
+    }
+
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('show');
+    }
+	//Carrusel
+	function scrollCarrusel(direccion) {
+	  const carrusel = document.getElementById('carrusel');
+	  const scrollCantidad = 220; // Un poco más que el ancho de una imagen
+	  carrusel.scrollBy({
+		left: direccion * scrollCantidad,
+		behavior: 'smooth'
+	  });
+	}
+	//carruseldos
+	function scrollcarruseldos(direccion) {
+	  const carruseldos = document.getElementById('carruseldos');
+	  const scrollCantidad = 220; // Un poco más que el ancho de una imagen
+	  carruseldos.scrollBy({
+		left: direccion * scrollCantidad,
+		behavior: 'smooth'
+	  });
+	}
+	//carruselCuatro
+	function scrollcarruselCuatro(direccion) {
+	  const carruselCuatro = document.getElementById('carruselCuatro');
+	  const scrollCantidad = 220; // Un poco más que el ancho de una imagen
+	  carruselCuatro.scrollBy({
+		left: direccion * scrollCantidad,
+		behavior: 'smooth'
+	  });
+	}
+	//carruselCinco
+	function scrollcarruselCinco(direccion) {
+	  const carruselCinco = document.getElementById('carruselCinco');
+	  const scrollCantidad = 220; // Un poco más que el ancho de una imagen
+	  carruselCinco.scrollBy({
+		left: direccion * scrollCantidad,
+		behavior: 'smooth'
+	  });
+	}
+	//carruselSeis
+	function scrollcarruselSeis(direccion) {
+	  const carruselSeis = document.getElementById('carruselSeis');
+	  const scrollCantidad = 220; // Un poco más que el ancho de una imagen
+	  carruselSeis.scrollBy({
+		left: direccion * scrollCantidad,
+		behavior: 'smooth'
+	  });
+	}
+	  // Mostrar una sección por defecto al cargar
+    window.onload = function () {
+      const primerEnlace = document.querySelector('.menu a');
+      primerEnlace.click();
+    };
+
+// Lightbox para todas las imágenes de todos los carruseles
+const lightbox = document.getElementById('lightbox');
+const imgZoom = document.getElementById('imgZoom');
+const cerrar = document.getElementById('cerrar');
+
+// Seleccionamos todas las imágenes de tus carruseles
+document.querySelectorAll('.carrusel img, .carruseldos img, .carruselCuatro img, .carruselCinco img, .carruselSeis img')
+.forEach(img => {
+  img.style.cursor = 'pointer';
+  img.addEventListener('click', () => {
+    imgZoom.src = img.src;
+    lightbox.style.display = 'flex';
+  });
+});
+
+// Cerrar lightbox al hacer click en la X o fuera de la imagen
+cerrar.addEventListener('click', () => lightbox.style.display = 'none');
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) lightbox.style.display = 'none';
+});
+
+
+
+  </script>
+
+</body>
+</html>
